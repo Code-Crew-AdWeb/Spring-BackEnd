@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Post {
+public class Post extends  BaseEntity{
     @Id @GeneratedValue
     @Column(name = "post_id")
     private Long id;
@@ -19,6 +19,8 @@ public class Post {
     private String title;
 
     private String content;
+
+    private String postImg;
 
     private Boolean privacy;
 

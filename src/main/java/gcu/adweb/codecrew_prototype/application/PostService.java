@@ -28,4 +28,11 @@ public class PostService {
         postRepository.save(post);
     }
 
+//    public PostResponseDto findAllPost() {
+//
+//        postRepository.findAll();
+//
+//
+//    }
+
 }
