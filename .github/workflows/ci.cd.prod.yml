@@ -1,1 +1,11 @@
+name: Deploy workflow on production
 
+on:
+  push:
+    branches: main
+
+jobs:
+  deploy: 
+    
+    
+    
