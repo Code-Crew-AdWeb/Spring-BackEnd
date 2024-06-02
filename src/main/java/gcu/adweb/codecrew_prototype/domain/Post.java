@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -20,14 +22,21 @@ public class Post extends  BaseEntity{
 
     private String content;
 
+    private String reference;
+
     private String postImg;
 
     private Boolean privacy;
 
-    private String code;
+    private String codeBeforeUpdate;
 
-    @ManyToOne
+    private String codeAfterUpdate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToMany(mappedBy = "post")
+    private List<Tag> tagList;
 
 }

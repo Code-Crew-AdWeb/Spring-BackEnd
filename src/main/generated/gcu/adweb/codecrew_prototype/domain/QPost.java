@@ -24,12 +24,14 @@ public class QPost extends EntityPathBase<Post> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final StringPath code = createString("code");
+    public final StringPath codeAfterUpdate = createString("codeAfterUpdate");
+
+    public final StringPath codeBeforeUpdate = createString("codeBeforeUpdate");
 
     public final StringPath content = createString("content");
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -39,10 +41,14 @@ public class QPost extends EntityPathBase<Post> {
 
     public final BooleanPath privacy = createBoolean("privacy");
 
+    public final StringPath reference = createString("reference");
+
+    public final ListPath<Tag, QTag> tagList = this.<Tag, QTag>createList("tagList", Tag.class, QTag.class, PathInits.DIRECT2);
+
     public final StringPath title = createString("title");
 
     //inherited
-    public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
+    public final DateTimePath<java.time.LocalDateTime> updatedDate = _super.updatedDate;
 
     public QPost(String variable) {
         this(Post.class, forVariable(variable), INITS);

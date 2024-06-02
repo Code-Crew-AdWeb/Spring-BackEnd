@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -15,6 +17,7 @@ public class UserService {
 
     private final MemberRepository memberRepository;
 
+    //회원 가입
     public void saveUser(SignUpDto signUpDto) {
 
         Member member = Member.builder( )
@@ -25,6 +28,11 @@ public class UserService {
                 .username(signUpDto.getUsername())
                 .build( );
         memberRepository.save(member);
+    }
+
+    //유저 프로필 조회
+    public Optional<Member> findOne(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 
 
