@@ -18,7 +18,7 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-
+    
     private String username;
 
     private String phoneNumber;
@@ -30,7 +30,5 @@ public class Member {
     private String gitUrl;
 
     private String profileImageUrl;
-
-
 
 }

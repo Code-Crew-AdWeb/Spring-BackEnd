@@ -23,5 +23,13 @@ public class MemberDto {
 
     }
 
+    @AllArgsConstructor
+    @Data
+    public static class LoginDto {
+
+        private String userId;
+
+        private String userPw;
+    }
 
 }
