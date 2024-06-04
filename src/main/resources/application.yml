@@ -3,7 +3,7 @@ spring:
 
   profiles:
     group:
-      "local": "local, jwt, oauth,db,swagger"
+      "local": "local, jwt,db,swagger"
     active: local
 #  config:
 #    activate:
