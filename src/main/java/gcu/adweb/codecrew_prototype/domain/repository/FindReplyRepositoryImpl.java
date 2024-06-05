@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.Map;
 import static gcu.adweb.codecrew_prototype.domain.entity.QMember.member;
 import static gcu.adweb.codecrew_prototype.domain.entity.QReply.reply;
 
+@Repository
 public class FindReplyRepositoryImpl extends QuerydslRepositorySupport implements FindReplyRepository {
 
     private final JPAQueryFactory jpaQueryFactory;

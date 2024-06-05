@@ -67,9 +67,11 @@ public class SearchpostRepositoryImpl extends QuerydslRepositorySupport implemen
                 .where(post.id.eq(postId))
                 .fetchOne( );
 
+
+
         assert findPost != null;
         List<TagDto> tagDtoList = findPost.getTagList().stream( )
-                .map(tag->TagDto.toTagDto(tag))
+                .map(tag->TagDto.toTagDto(tag,tag.getPost()))
                 .collect(Collectors.toList());
             return PostResponseDto.toPostResponseDto(findPost,tagDtoList);
 

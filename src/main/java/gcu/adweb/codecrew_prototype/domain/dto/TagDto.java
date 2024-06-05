@@ -27,12 +27,12 @@ public class TagDto {
         this.postId= postId;
     }
 
-    public static TagDto toTagDto(Tag tag) {
+    public static TagDto toTagDto(Tag tag,Post post) {
 
         return TagDto.builder()
                 .tagId(tag.getId())
                 .name(tag.getName())
-                .postId(tag.getPost().getId()).build();
+                .postId(post.getId()).build();
 
     }
 

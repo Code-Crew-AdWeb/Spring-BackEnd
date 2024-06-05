@@ -57,7 +57,7 @@ public class PostService {
                     .member(member)
                     .build( );
 
-            tagDtoList.add(TagDto.toTagDto(tag));
+            tagDtoList.add(TagDto.toTagDto(tag,post));
             post.getTagList().add(tag);
 
         }
