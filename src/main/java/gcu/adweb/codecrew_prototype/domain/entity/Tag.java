@@ -8,9 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Tag {
 
     @Id @GeneratedValue
@@ -22,4 +20,16 @@ public class Tag {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @Builder
+    public Tag(Long id, String name, Post post, Member member) {
+        this.id = id;
+        this.name = name;
+        this.post = post;
+        this.member = member;
+    }
 }

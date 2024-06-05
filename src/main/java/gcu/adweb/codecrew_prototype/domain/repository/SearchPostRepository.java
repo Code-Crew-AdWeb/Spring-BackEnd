@@ -6,4 +6,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface SearchPostRepository {
     Page<PostDto.PostResponseDto> findPostByKeyword(String keyword, Pageable pageable,Long memberId);
+
+    PostDto.PostResponseDto findOnePost(Long postId);
+
+    Page<PostDto.PostResponseDto> findPostByTag(Long tagId, Pageable pageable);
 }

@@ -30,7 +30,7 @@ public class UserService {
             throw new IllegalArgumentException("이미 사용중인 닉네임 입니다");
         }
 
-        String encodedPassword = passwordEncoder.encode(signUpDto.getUserPw());
+        String encodedPassword = passwordEncoder.encode(signUpDto.getPassword());
 
         List<String> roles = new ArrayList<>(  );
         roles.add("USER");

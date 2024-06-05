@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,6 +32,7 @@ public class PostService {
 
     //포스트 저장
 
+    @Transactional
     public PostDto.PostResponseDto savePost(PostDto.SavePostDto savePostDto, Long memberId) {
 
         Member member = memberRepository.findById(memberId).orElseThrow(()->new RuntimeException());
@@ -41,8 +43,8 @@ public class PostService {
                 .codeBeforeUpdate(savePostDto.getCodeBeforeUpdate())
                 .codeAfterUpdate(savePostDto.getCodeAfterUpdate())
                 .reference(savePostDto.getReference())
-                .privacy(savePostDto.getPrivacy())
                 .postImg(savePostDto.getPostImg())
+                .privacy(savePostDto.getPrivacy())
                 .member(member)
                 .build( );
 
@@ -51,9 +53,12 @@ public class PostService {
         for(String name : tagList) {
             Tag tag = Tag.builder( )
                     .name(name)
+                    .post(post)
+                    .member(member)
                     .build( );
+
+            tagDtoList.add(TagDto.toTagDto(tag));
             post.getTagList().add(tag);
-            tagDtoList.add(TagDto.toTagDto(tag,name));
 
         }
 
@@ -70,10 +75,19 @@ public class PostService {
     // keyword 포함하는거 또는 memberId 포함하는 것만 조회 가능
 
     public Page<PostDto.PostResponseDto> postList(String keyword, Pageable pageable, Long memberId) {
-        Page<PostDto.PostResponseDto> result = searchPostRepository.findPostByKeyword(keyword,pageable,memberId);
-        return result;
+        return searchPostRepository.findPostByKeyword(keyword,pageable,memberId);
+    }
+
+    public Page<PostDto.PostResponseDto> postListByTag(Long tagId,Pageable pageable) {
+
+        return searchPostRepository.findPostByTag(tagId,pageable);
+
     }
 
 
+    public PostDto.PostResponseDto findOne(Long postId) {
 
+        return searchPostRepository.findOnePost(postId);
+
+    }
 }

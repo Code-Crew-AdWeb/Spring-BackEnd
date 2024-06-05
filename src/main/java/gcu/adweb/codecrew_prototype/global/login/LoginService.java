@@ -31,14 +31,26 @@ public class LoginService {
     @Transactional
     public JwtToken signIn(String userId, String password, HttpServletResponse httpServletResponse) {
 
+        log.info(userId);
 
 
         Optional<Member> findMember = memberRepository.findByUserId(userId);
 
-        if(passwordEncoder.matches(password,findMember.orElseThrow().getPassword()))
-        {
-            password = findMember.orElseThrow().getPassword();
+        try{
+            if(passwordEncoder.matches(password,findMember.orElseThrow(() -> new RuntimeException("올바른 아이디를 입력해주세요")).getPassword()))
+            {
+                password = findMember.orElseThrow().getPassword();
+            }
+            else {
+                throw new RuntimeException("비밀번호가 틀렸습니다");
+            }
+            log.info("로그인 성공!");
+
+        }catch(Exception e) {
+            log.info(e.toString());
         }
+
+
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userId,password);
 
@@ -46,8 +58,18 @@ public class LoginService {
 
         JwtToken jwtToken = jwtTokenProviderProvider.generateToken(authentication);
 
-        Cookie memberIdCookie = new Cookie("memberId",findMember.orElseThrow().getId().toString());
+        Cookie memberIdCookie = new Cookie("memberId", findMember.orElseThrow().getId().toString());
         Cookie refreshToken = new Cookie("refreshToken", jwtToken.getRefreshToken( ));
+        refreshToken.setHttpOnly(true);
+        refreshToken.setSecure(true);
+        refreshToken.setMaxAge(1000 * 60 * 6);
+        refreshToken.setPath("/");
+        refreshToken.setAttribute("SameSite", "None");
+        memberIdCookie.setHttpOnly(true);
+        memberIdCookie.setSecure(true);
+        memberIdCookie.setPath("/");
+        memberIdCookie.setMaxAge(1000 * 60 * 60);
+        memberIdCookie.setAttribute("SameSite", "none");
 
         httpServletResponse.setHeader("Authorization",jwtToken.getAccessToken( ));
         httpServletResponse.addCookie(memberIdCookie);

@@ -16,7 +16,7 @@ public class MemberDto {
 
         private String userId;
 
-        private String userPw;
+        private String password;
 
 //        private String gitUrl;
 
@@ -24,10 +24,10 @@ public class MemberDto {
 
 
         @Builder
-        public SignUpDto(String username, String userId, String userPw) {
+        public SignUpDto(String username, String userId, String password) {
             this.username = username;
             this.userId = userId;
-            this.userPw = userPw;
+            this.password = password;
         }
 
 

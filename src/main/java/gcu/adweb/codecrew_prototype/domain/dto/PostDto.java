@@ -1,18 +1,14 @@
 package gcu.adweb.codecrew_prototype.domain.dto;
 
 import gcu.adweb.codecrew_prototype.domain.entity.Post;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 public class PostDto {
 
-    @AllArgsConstructor
     @Data
     public static class SavePostDto {
 
@@ -33,15 +29,26 @@ public class PostDto {
 
         private List<String> tagDtoList;
 
+        @Builder
+        public SavePostDto(String title, String content, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, String reference, String postImg) {
+            this.title = title;
+            this.content = content;
+            this.privacy = privacy;
+            this.codeBeforeUpdate = codeBeforeUpdate;
+            this.codeAfterUpdate = codeAfterUpdate;
+            this.reference = reference;
+            this.postImg = postImg;
+            this.tagDtoList = new ArrayList<>();
+        }
     }
 
 
     @Data
-    @Builder
     @EqualsAndHashCode(of = "postId")
+    @NoArgsConstructor
     public static class PostResponseDto {
 
-        private Long postId;
+        private Long id;
 
         private String title;
 
@@ -65,7 +72,7 @@ public class PostDto {
 
         @Builder
         public PostResponseDto(Long postId, String title, String content, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, String reference, LocalDateTime createDate, String username, String postImg, List<TagDto> tagList) {
-            this.postId = postId;
+            this.id = postId;
             this.title = title;
             this.content = content;
             this.privacy = privacy;

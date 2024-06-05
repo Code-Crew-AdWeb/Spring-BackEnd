@@ -24,6 +24,8 @@ public class QTag extends EntityPathBase<Tag> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final QMember member;
+
     public final StringPath name = createString("name");
 
     public final QPost post;
@@ -46,6 +48,7 @@ public class QTag extends EntityPathBase<Tag> {
 
     public QTag(Class<? extends Tag> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
         this.post = inits.isInitialized("post") ? new QPost(forProperty("post"), inits.get("post")) : null;
     }
 

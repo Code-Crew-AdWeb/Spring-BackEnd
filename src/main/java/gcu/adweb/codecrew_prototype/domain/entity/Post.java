@@ -6,13 +6,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Post extends  BaseEntity{
     @Id @GeneratedValue
     @Column(name = "post_id")
@@ -39,4 +38,17 @@ public class Post extends  BaseEntity{
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Tag> tagList;
 
+    @Builder
+    public Post(Long id, String title, String content, String reference, String postImg, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, Member member) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.reference = reference;
+        this.postImg = postImg;
+        this.privacy = privacy;
+        this.codeBeforeUpdate = codeBeforeUpdate;
+        this.codeAfterUpdate = codeAfterUpdate;
+        this.member = member;
+        this.tagList = new ArrayList<>( );
+    }
 }

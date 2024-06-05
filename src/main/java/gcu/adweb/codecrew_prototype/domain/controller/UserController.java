@@ -20,7 +20,6 @@ public class UserController {
     @GetMapping("/profile")
     public UserInfoResponseDto showUserProfile(@CookieValue("memberId") Long memberId ) {
 
-
         return userService.showUserProfile(memberId);
 
     }
