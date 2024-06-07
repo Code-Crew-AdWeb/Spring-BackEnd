@@ -22,7 +22,7 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-    private final FindReplyRepository findReplyRepository;
+//    private final FindReplyRepository findReplyRepository;
 
     //댓글 생성
     public ReplyGetResponseDto saveReply(Long postId,Long memberId,ReplySaveRequestDto replySaveRequestDto) {
@@ -37,7 +37,7 @@ public class ReplyService {
 
     //댓글 리스트
     public Page<ReplyGetResponseDto> findAll(Long postId, Pageable pageable){
-        return findReplyRepository.findPostReplies(postId, pageable);
+        return replyRepository.findPostReplies(postId, pageable);
     }
 
     //댓글 삭제

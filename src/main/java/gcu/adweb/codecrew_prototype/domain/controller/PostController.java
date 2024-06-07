@@ -2,6 +2,7 @@ package gcu.adweb.codecrew_prototype.domain.controller;
 
 
 import gcu.adweb.codecrew_prototype.domain.application.PostService;
+import gcu.adweb.codecrew_prototype.domain.dto.LikeDto;
 import gcu.adweb.codecrew_prototype.domain.dto.PostDto.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,10 +29,10 @@ public class PostController {
 
     // 포스트 검색어로 불러오기
     @GetMapping("/list/search")
-    public Page<PostResponseDto> postList(@CookieValue String memberId , @RequestParam(required = false) String keyword, Pageable pageable) {
+    public Page<PostResponseDto> postList(@RequestParam(required = false) String keyword, Pageable pageable) {
 
 
-        log.info("memberId={}", memberId);
+//        log.info("memberId={}", memberId);
         Page<PostResponseDto> postResponseDtos = postService.postList(keyword, pageable, null);
 
         return postResponseDtos;
@@ -49,25 +50,6 @@ public class PostController {
 
     }
 
-//    @GetMapping("/list")
-//    public Page<PostResponseDto> postList(HttpServletRequest request, @RequestParam(required = false) String keyword, Pageable pageable) {
-//
-//        Cookie[] cookies = request.getCookies();
-//        String memberId = null;
-//        if(cookies != null){
-//            for (Cookie cookie : cookies) {
-//                if(cookie.getName().equals("memberId")){
-//                    memberId = cookie.getValue();
-//                }
-//            }
-//        }
-//
-//        log.info("memberId={}", memberId);
-//        Page<PostResponseDto> postResponseDtos = postService.postList(keyword, pageable, Long.valueOf(memberId));
-//
-//        return postResponseDtos;
-//
-//    }
 
     // 포스트 하나 조회
     @GetMapping("/list/post-id={postId}")
@@ -84,7 +66,6 @@ public class PostController {
         return postService.postListByTag(tagId,pageable);
 
     }
-
 
 
 }

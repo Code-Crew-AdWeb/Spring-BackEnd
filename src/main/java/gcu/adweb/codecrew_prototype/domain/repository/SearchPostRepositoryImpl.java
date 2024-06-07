@@ -14,7 +14,6 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 import org.springframework.stereotype.Repository;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,12 +25,12 @@ import static gcu.adweb.codecrew_prototype.domain.entity.QTag.tag;
 
 @Repository
 @Slf4j
-public class SearchpostRepositoryImpl extends QuerydslRepositorySupport implements SearchPostRepository {
+public class SearchPostRepositoryImpl extends QuerydslRepositorySupport implements SearchPostRepository {
 
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    public SearchpostRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
+    public SearchPostRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
         super(Post.class);
         this.jpaQueryFactory = jpaQueryFactory;
     }
@@ -39,7 +38,7 @@ public class SearchpostRepositoryImpl extends QuerydslRepositorySupport implemen
 
     //키워드로 검색
     @Override
-    public Page<PostResponseDto> findPostByKeyword(String keyword, Pageable pageable,Long memberId) {
+    public Page<PostResponseDto> postListKeyword(String keyword, Pageable pageable,Long memberId) {
 
         // Tag 가 컬렉션이라서 루트 1번, 컬렉션 1번 쿼리를 날려야함
 
@@ -51,12 +50,10 @@ public class SearchpostRepositoryImpl extends QuerydslRepositorySupport implemen
 
         Map<Long,List<TagDto>> tagMap = findTagMap(toPostIds(result));
 
-
         // 루프를 돌면서 컬렉션 추가(추가 쿼리 실행X)
         result.forEach(p -> p.setTagList(tagMap.get(p.getId())));
 
        return new PageImpl<>(result,pageable,result.size());
-
     }
 
     @Override
