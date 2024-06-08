@@ -10,6 +10,7 @@ import java.util.List;
 public class PostDto {
 
     @Data
+    @NoArgsConstructor
     public static class SavePostDto {
 
 

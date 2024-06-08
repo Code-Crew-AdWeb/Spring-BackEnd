@@ -60,16 +60,16 @@ public class LoginService {
 
         Cookie memberIdCookie = new Cookie("memberId", findMember.orElseThrow().getId().toString());
         Cookie refreshToken = new Cookie("refreshToken", jwtToken.getRefreshToken( ));
-        refreshToken.setHttpOnly(true);
+//        refreshToken.setHttpOnly(true);
         refreshToken.setSecure(true);
         refreshToken.setMaxAge(1000 * 60 * 6);
         refreshToken.setPath("/");
         refreshToken.setAttribute("SameSite", "None");
-        memberIdCookie.setHttpOnly(true);
+//        memberIdCookie.setHttpOnly(true);
         memberIdCookie.setSecure(true);
         memberIdCookie.setPath("/");
         memberIdCookie.setMaxAge(1000 * 60 * 60);
-        memberIdCookie.setAttribute("SameSite", "none");
+        memberIdCookie.setAttribute("SameSite", "None");
 
         httpServletResponse.setHeader("Authorization",jwtToken.getAccessToken( ));
         httpServletResponse.addCookie(memberIdCookie);

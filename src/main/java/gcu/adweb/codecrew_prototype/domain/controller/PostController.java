@@ -20,9 +20,11 @@ public class PostController {
 
     // 포스트 저장
     @PostMapping("/save")
-    public SavePostDto savePost(@RequestBody SavePostDto savePostDto,@CookieValue("memberId") Long memberId ) {
+    public SavePostDto savePost(@RequestBody SavePostDto savePostDto,@CookieValue("memberId") String memberId ) {
 
-        postService.savePost(savePostDto,memberId);
+        log.info(memberId);
+
+        postService.savePost(savePostDto,Long.valueOf(memberId));
 
         return savePostDto;
     }
