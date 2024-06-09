@@ -28,7 +28,7 @@ public class PostDto {
 
         private String postImg;
 
-        private List<String> tagDtoList;
+        private List<String> tagList;
 
         @Builder
         public SavePostDto(String title, String content, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, String reference, String postImg) {
@@ -39,7 +39,7 @@ public class PostDto {
             this.codeAfterUpdate = codeAfterUpdate;
             this.reference = reference;
             this.postImg = postImg;
-            this.tagDtoList = new ArrayList<>();
+            this.tagList = new ArrayList<>();
         }
     }
 

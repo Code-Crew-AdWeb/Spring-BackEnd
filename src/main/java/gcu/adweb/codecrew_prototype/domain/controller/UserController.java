@@ -5,6 +5,8 @@ import gcu.adweb.codecrew_prototype.domain.dto.MemberDto;
 import gcu.adweb.codecrew_prototype.domain.dto.MemberDto.*;
 import gcu.adweb.codecrew_prototype.domain.entity.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -18,9 +20,12 @@ public class UserController {
 
     // 유저 프로필 조회
     @GetMapping("/profile")
-    public UserInfoResponseDto showUserProfile(@CookieValue("memberId") Long memberId ) {
+    public UserInfoResponseDto showUserProfile(
+//            @CookieValue("memberId") Long memberId
+            @AuthenticationPrincipal UserDetails userDetails
+            ) {
 
-        return userService.showUserProfile(memberId);
+        return userService.showUserProfile(userDetails.getUsername());
 
     }
 

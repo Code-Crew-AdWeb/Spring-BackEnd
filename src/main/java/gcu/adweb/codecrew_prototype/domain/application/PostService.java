@@ -35,9 +35,9 @@ public class PostService {
     //포스트 저장
 
     @Transactional
-    public PostDto.PostResponseDto savePost(PostDto.SavePostDto savePostDto, Long memberId) {
+    public PostDto.PostResponseDto savePost(PostDto.SavePostDto savePostDto, String userId) {
 
-        Member member = memberRepository.findById(memberId).orElseThrow(()->new RuntimeException());
+        Member member = memberRepository.findByUserId(userId).orElseThrow(()->new RuntimeException());
 
         Post post = Post.builder( )
                 .title(savePostDto.getTitle())
@@ -50,7 +50,7 @@ public class PostService {
                 .member(member)
                 .build( );
 
-        List<String> tagList = savePostDto.getTagDtoList();
+        List<String> tagList = savePostDto.getTagList();
         List<TagDto> tagDtoList = new ArrayList<>(  );
         for(String name : tagList) {
             Tag tag = Tag.builder( )

@@ -54,8 +54,8 @@ public class UserService {
 
 
     //유저 프로필 조회
-    public UserInfoResponseDto showUserProfile(Long memberId) {
-        Optional<Member> findUser = memberRepository.findById(memberId);
+    public UserInfoResponseDto showUserProfile(String userId) {
+        Optional<Member> findUser = memberRepository.findByUserId(userId);
 
         return UserInfoResponseDto.builder( )
                 .username(findUser.orElseThrow().getUsername()).build( );
