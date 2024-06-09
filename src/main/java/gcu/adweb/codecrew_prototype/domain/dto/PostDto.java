@@ -28,10 +28,12 @@ public class PostDto {
 
         private String postImg;
 
+        private String lang;
+
         private List<String> tagList;
 
         @Builder
-        public SavePostDto(String title, String content, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, String reference, String postImg) {
+        public SavePostDto(String title, String content, Boolean privacy,String lang, String codeBeforeUpdate, String codeAfterUpdate, String reference, String postImg) {
             this.title = title;
             this.content = content;
             this.privacy = privacy;
@@ -39,6 +41,7 @@ public class PostDto {
             this.codeAfterUpdate = codeAfterUpdate;
             this.reference = reference;
             this.postImg = postImg;
+            this.lang = lang;
             this.tagList = new ArrayList<>();
         }
     }
@@ -69,10 +72,12 @@ public class PostDto {
 
         private String postImg;
 
+        private String lang;
+
         private List<TagDto> tagList;
 
         @Builder
-        public PostResponseDto(Long postId, String title, String content, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, String reference, LocalDateTime createDate, String username, String postImg, List<TagDto> tagList) {
+        public PostResponseDto(Long postId, String title, String content, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, String reference, LocalDateTime createDate, String username, String postImg, List<TagDto> tagList,String lang) {
             this.id = postId;
             this.title = title;
             this.content = content;
@@ -84,6 +89,7 @@ public class PostDto {
             this.username = username;
             this.postImg = postImg;
             this.tagList = tagList;
+            this.lang = lang;
         }
         public static PostResponseDto toPostResponseDto(Post post, List<TagDto> tagList) {
 
@@ -98,6 +104,7 @@ public class PostDto {
                     .createDate(post.getCreatedDate())
                     .username(post.getMember().getUsername())
                     .postImg(post.getPostImg())
+                    .lang(post.getLang())
                     .tagList(tagList)
                     .build();
 

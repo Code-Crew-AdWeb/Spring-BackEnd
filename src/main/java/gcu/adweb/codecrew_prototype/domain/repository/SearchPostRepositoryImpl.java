@@ -46,6 +46,7 @@ public class SearchPostRepositoryImpl extends QuerydslRepositorySupport implemen
 
         List<PostResponseDto> result = findPosts(keyword,pageable,memberId);
 
+//        log.info(result.toString());
         // Tag 컬렉션을 MAP 한방에 조회
 
         Map<Long,List<TagDto>> tagMap = findTagMap(toPostIds(result));
@@ -79,7 +80,7 @@ public class SearchPostRepositoryImpl extends QuerydslRepositorySupport implemen
         return jpaQueryFactory
                 .select(Projections.fields(
                         PostResponseDto.class,post.id,post.title,post.content,
-                                member.username,post.createdDate,post.postImg,post.privacy,post.reference,post.codeAfterUpdate,post.codeBeforeUpdate
+                                member.username,post.createdDate,post.postImg,post.privacy,post.reference,post.codeAfterUpdate,post.codeBeforeUpdate,post.lang
                 )
                 )
                 .from(post)

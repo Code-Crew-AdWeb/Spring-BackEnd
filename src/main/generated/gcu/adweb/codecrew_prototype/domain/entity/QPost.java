@@ -35,6 +35,8 @@ public class QPost extends EntityPathBase<Post> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final StringPath lang = createString("lang");
+
     public final QMember member;
 
     public final StringPath postImg = createString("postImg");

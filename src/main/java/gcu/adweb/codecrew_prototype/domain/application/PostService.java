@@ -47,6 +47,7 @@ public class PostService {
                 .reference(savePostDto.getReference())
                 .postImg(savePostDto.getPostImg())
                 .privacy(savePostDto.getPrivacy())
+                .lang(savePostDto.getLang())
                 .member(member)
                 .build( );
 

@@ -29,6 +29,8 @@ public class Post extends  BaseEntity{
 
     private String codeBeforeUpdate;
 
+    private String lang;
+
     private String codeAfterUpdate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,7 +41,7 @@ public class Post extends  BaseEntity{
     private List<Tag> tagList;
 
     @Builder
-    public Post(Long id, String title, String content, String reference, String postImg, Boolean privacy, String codeBeforeUpdate, String codeAfterUpdate, Member member) {
+    public Post(Long id, String title, String content, String reference, String postImg, Boolean privacy, String codeBeforeUpdate, String lang,String codeAfterUpdate, Member member) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -49,6 +51,7 @@ public class Post extends  BaseEntity{
         this.codeBeforeUpdate = codeBeforeUpdate;
         this.codeAfterUpdate = codeAfterUpdate;
         this.member = member;
+        this.lang = lang;
         this.tagList = new ArrayList<>( );
     }
 }
