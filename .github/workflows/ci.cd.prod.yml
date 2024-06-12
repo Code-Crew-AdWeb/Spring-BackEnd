@@ -27,52 +27,47 @@ jobs:
       run: chmod +x ./gradlew
     - name: 프로젝트 빌드
       run: ./gradlew clean build -x test
-      
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v1
-        with:
-          images: junbumchoi0402/codeCrewBE
-          tag-semver: |
-            {{version}}
-            {{major}}.{{minor}}
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: check
-        with:
-          run: 'sh ls'
-      - name: Build and push
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64
-          push: true
-          tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }} 
-      -  name: Deploy
-         uses: appleboy/ssh-action@master
-         with:
-           host: ${{ secrets.REMOTE_IP }}
-           username: ${{ secrets.REMOTE_SSH_ID }}
-           key: ${{ secrets.REMOTE_SSH_KEY }}
-           port: ${{ secrets.REMOTE_SSH_PORT }}
-           script: |
-            whoami
+    - name: Checkout
+      uses: actions/checkout@v2
+    -
+      name: Docker meta
+      id: docker_meta
+      uses: crazy-max/ghaction-docker-meta@v1
+      with:
+        images: junbumchoi0402/codeCrewBE
+        tag-semver: |
+          {{version}}
+          {{major}}.{{minor}}
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    -
+      name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: check
+      with:
+        run: 'sh ls'
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64
+        push: true
+        tags: ${{ steps.docker_meta.outputs.tags }}
+        labels: ${{ steps.docker_meta.outputs.labels }} 
+    -  name: Deploy
+       uses: appleboy/ssh-action@master
+       with:
+         host: ${{ secrets.REMOTE_IP }}
+         username: ${{ secrets.REMOTE_SSH_ID }}
+         key: ${{ secrets.REMOTE_SSH_KEY }}
+         port: ${{ secrets.REMOTE_SSH_PORT }}
+         script: |
+          whoami
           
 
       
