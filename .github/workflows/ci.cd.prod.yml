@@ -11,9 +11,23 @@ env:
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: CodeCrew-codedeploy-group
 
 jobs:
-  deploy: 
-  
-jobs:
+  build-with-gradle:
+    runs-on: ubuntu-20.04
+    steps:
+    - name: production 브랜치로 이동
+      uses: actions/checkout@v3
+      with:
+        ref: production
+    - name: JDK 17 설치
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+    - name: gradlew에 실행 권한 부여
+      run: chmod +x ./gradlew
+    - name: 프로젝트 빌드
+      run: ./gradlew clean build -x test
+      
   build:
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +39,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
-          images: junbumchoi0402/codeCrewBE
+          images: junbumchoi0402/codeCrewBE
           tag-semver: |
             {{version}}
             {{major}}.{{minor}}
@@ -38,8 +52,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
+      - name: Build and push
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -47,7 +60,17 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
-          labels: ${{ steps.docker_meta.outputs.labels }}  
+          labels: ${{ steps.docker_meta.outputs.labels }} 
+      -  name: Deploy
+         uses: appleboy/ssh-action@master
+         with:
+           host: ${{ secrets.REMOTE_IP }}
+           username: ${{ secrets.REMOTE_SSH_ID }}
+           key: ${{ secrets.REMOTE_SSH_KEY }}
+           port: ${{ secrets.REMOTE_SSH_PORT }}
+           script: |
+            whoami
+          
 
       
     
