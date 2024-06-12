@@ -3,7 +3,7 @@ name: Deploy workflow on production
 on:
   push:
     branches:
-    - main
+    - develop
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: mys3buketcjb
