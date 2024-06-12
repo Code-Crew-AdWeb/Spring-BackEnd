@@ -19,6 +19,7 @@ public class Post extends  BaseEntity{
 
     private String title;
 
+    @Column(columnDefinition = "longtext")
     private String content;
 
     private String reference;
@@ -27,10 +28,12 @@ public class Post extends  BaseEntity{
 
     private Boolean privacy;
 
+    @Column(columnDefinition = "longtext")
     private String codeBeforeUpdate;
 
     private String lang;
 
+    @Column(columnDefinition = "longtext")
     private String codeAfterUpdate;
 
     @ManyToOne(fetch = FetchType.LAZY)

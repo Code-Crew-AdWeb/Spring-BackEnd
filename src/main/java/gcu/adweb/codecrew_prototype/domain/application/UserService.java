@@ -40,6 +40,7 @@ public class UserService {
                 .password(encodedPassword)
 //                .gitUrl(signUpDto.getGitUrl( ))
 //                .phoneNumber(signUpDto.getPhoneNumber())
+                .bio("Welcome "+signUpDto.getUsername())
                 .roles(roles)
                 .username(signUpDto.getUsername())
                 .build( );
@@ -47,7 +48,8 @@ public class UserService {
         memberRepository.save(member);
 
         return UserInfoResponseDto.builder( )
-                .username(member.getUsername()).build( );
+                .username(member.getUsername())
+                .bio(member.getBio()).build( );
 
     }
 
@@ -58,7 +60,8 @@ public class UserService {
         Optional<Member> findUser = memberRepository.findByUserId(userId);
 
         return UserInfoResponseDto.builder( )
-                .username(findUser.orElseThrow().getUsername()).build( );
+                .username(findUser.orElseThrow().getUsername())
+                .bio(findUser.orElseThrow().getBio()).build( );
 
     }
 

@@ -37,10 +37,12 @@ public class MemberDto {
     public static class UserInfoResponseDto {
 
         private String username;
+        private String bio;
 
         @Builder
-        public UserInfoResponseDto(String username) {
+        public UserInfoResponseDto(String username, String bio) {
             this.username = username;
+            this.bio = bio;
         }
     }
 

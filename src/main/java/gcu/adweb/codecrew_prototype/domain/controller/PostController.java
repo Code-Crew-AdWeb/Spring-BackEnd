@@ -40,6 +40,7 @@ public class PostController {
 
 
 //        log.info("memberId={}", memberId);
+        log.info(keyword);
         Page<PostResponseDto> postResponseDtos = postService.postList(keyword, pageable, null);
 
         return postResponseDtos;
