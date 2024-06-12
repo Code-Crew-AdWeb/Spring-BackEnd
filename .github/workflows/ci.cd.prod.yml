@@ -37,12 +37,17 @@ jobs:
         run: |
           chmod +x ./gradlew
           ./gradlew clean build -x test
+      - name: Login to DockerHub                       #스텝의 이름
+        uses: docker/login-action@v1                   #사용할 동작
+        with:                                          #동작에 대한 input값 사용 선언
+          username: ${{ secrets.DOCKERHUB_USERNAME }}  #Docker Hub의 사용자 ID
+          password: ${{ secrets.DOCKERHUB_TOKEN }}     #Docker Hub에서 발급 받은 사용자 Token    
 
       # dockerfile을 통해 이미지를 빌드하고, 이를 docker repo로 push 합니다.
       # 이 때 사용되는 ${{ secrets.DOCKER_REPO }}/directors-dev 가 위에서 만든 도커 repository 입니다.
       - name: Docker build & push to docker repo
         run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          # docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker build -f Dockerfile -t ${{ secrets.DOCKER_REPO }}/directors-dev .
           docker push ${{ secrets.DOCKER_REPO }}/directors-dev
 
